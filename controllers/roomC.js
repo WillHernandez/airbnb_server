@@ -10,15 +10,31 @@ const pool = mysql.createPool({
 }).promise()
 
 export const createRoom = async (street, owner_id) => {
-	const room = await pool.query(`
+	const [room] = await pool.query(`
 	INSERT INTO Rooms (street, owner_id)	
 	VALUES(?, ?)`, [street, owner_id])
-	return room[0]
+	return room
 }
 
 export const getAllRooms = async () => {
-	const rooms = await pool.query(`
+	const [rooms] = await pool.query(`
 	SELECT * FROM Rooms
 	`)
-	return rooms[0]
+	return rooms
+}
+getAllRooms()
+
+export const getRoomHistory = async (roomId) => {
+	const [roomH] = pool.query(`
+	SELECT
+		room_id,
+		guest_id,
+		email,
+		bio
+	FROM Bookings
+	INNER JOIN Users
+	ON Users.id = guest_id
+	WHERE room_id = ${roomId}	
+	`)
+	return roomH
 }

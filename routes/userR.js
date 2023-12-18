@@ -8,3 +8,15 @@ router.post('/createuser', (req, res) => {
 	.then(data => res.status(200).json(data))
 	.catch(e => res.status(400).json(e))
 })
+
+router.get('/getuser/:id', (req, res) => {
+	userC.getUserId(req.params.id)
+	.then(data => res.status(200).json(data))
+	.catch(e => res.status(400).json(e))
+})
+
+router.get('/getusers/:country', (req, res) => {
+	userC.getUserCountry(req.params.country)
+	.then(data => res.status(200).json(data))
+	.catch(e => res.status(400).json(e))
+})
