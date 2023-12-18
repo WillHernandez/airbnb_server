@@ -15,4 +15,10 @@ export const createRoom = async (street, owner_id) => {
 	VALUES(?, ?)`, [street, owner_id])
 	return room[0]
 }
-createRoom("101 Manhattan Ave", 1)
+
+export const getAllRooms = async () => {
+	const rooms = await pool.query(`
+	SELECT * FROM Rooms
+	`)
+	return rooms[0]
+}
